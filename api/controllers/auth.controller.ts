@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import bcrypts from "bcryptjs";
 import User from "../models/user.model";
+import { errorHandler } from "../utlis/error";
 
 export const signup = async (
   req: Request,
@@ -9,6 +10,7 @@ export const signup = async (
 ) => {
   const { username, email, password } = req.body;
   const hashedPassword = bcrypts.hashSync(password, 10);
+
   const newUser = new User({ username, email, password: hashedPassword });
 
   try {
