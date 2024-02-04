@@ -1,13 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export interface userState {
-  currentUser: any;
+  currentUser: {
+    id: string;
+    username: string;
+    avatar: string;
+    email: string;
+    createdAt: Date;
+    updatedAt: Date;
+  } | null;
   error: string | null;
   loading: boolean;
 }
 
 const initialState = {
-  currentUser: null,
+  currentUser: null as userState["currentUser"],
   error: null,
   loading: false,
 };

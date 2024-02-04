@@ -86,6 +86,7 @@ export const googleSignIn = async (
       const userData = {
         _id: isValidUser._id,
         username: isValidUser.username,
+        avatar: photo,
         email: isValidUser.email,
         createdAt: isValidUser.createdAt,
         updatedAt: isValidUser.updatedAt,
