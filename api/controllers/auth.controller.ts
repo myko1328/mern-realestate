@@ -65,3 +65,68 @@ export const signin = async (
     next(error);
   }
 };
+
+export const googleSignIn = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { email, password, name, photo } = req.body;
+
+  const generatedName =
+    String(name).split(" ").join("").toLowerCase() +
+    Math.random().toString(36).slice(-4);
+
+  try {
+    const isValidUser = await User.findOne({ email: email });
+
+    if (isValidUser) {
+      const token = jwt.sign({ id: isValidUser._id }, jwtToken);
+
+      const userData = {
+        _id: isValidUser._id,
+        username: isValidUser.username,
+        email: isValidUser.email,
+        createdAt: isValidUser.createdAt,
+        updatedAt: isValidUser.updatedAt,
+      };
+
+      res
+        .cookie("access_token", token, { httpOnly: true })
+        .status(200)
+        .json(userData);
+    }
+
+    if (!isValidUser) {
+      const generatedPassword = Math.random().toString(36).slice(-8);
+      const hashedPassword = bcrypts.hashSync(generatedPassword, 10);
+
+      const newUser = new User({
+        username: generatedName,
+        email,
+        password: hashedPassword,
+        avatar: photo,
+      });
+
+      await newUser.save();
+
+      const token = jwt.sign({ id: newUser._id }, jwtToken);
+
+      const userData = {
+        _id: newUser._id,
+        username: newUser.username,
+        email: newUser.email,
+        avatar: newUser.avatar,
+        createdAt: newUser.createdAt,
+        updatedAt: newUser.updatedAt,
+      };
+
+      res
+        .cookie("access_token", token, { httpOnly: true })
+        .status(200)
+        .json(userData);
+    }
+  } catch (error) {
+    next(error);
+  }
+};
