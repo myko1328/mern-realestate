@@ -45,11 +45,12 @@ export const updateUser = async (
       _id: updatedUser?._id,
       username: updatedUser?.username,
       email: updatedUser?.email,
+      avatar: updatedUser?.avatar,
       createdAt: updatedUser?.createdAt,
       updatedAt: updatedUser?.updatedAt,
     };
 
-    res.status(200).json({ status: true, data: user });
+    res.status(200).json(user);
   } catch (error) {
     next(error);
   }

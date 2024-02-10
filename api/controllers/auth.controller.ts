@@ -50,6 +50,7 @@ export const signin = async (
 
     const user = {
       _id: validUser._id,
+      avatar: validUser?.avatar ?? "",
       username: validUser.username,
       email: validUser.email,
       createdAt: validUser.createdAt,
