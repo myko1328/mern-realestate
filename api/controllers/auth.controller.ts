@@ -42,7 +42,6 @@ export const signin = async (
     if (!validUser) {
       return next(errorHandler(404, "Wrong credentials!11"));
     }
-
     const validPassword = bcrypts.compareSync(password, validUser.password);
 
     if (!validPassword) return next(errorHandler(404, "Wrong credentials!"));

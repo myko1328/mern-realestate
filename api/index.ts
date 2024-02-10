@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRouter from "./routes/user.routes";
 import authRouter from "./routes/auth.route";
+import cookieParser from "cookie-parser";
 dotenv.config();
 
 const mongoUri: any = process.env.mongo_uri;
@@ -19,6 +20,9 @@ const app = express();
 const port = 3000;
 
 app.use(express.json());
+
+app.use(cookieParser());
+
 app.listen(port, () => {
   console.log(`listening to port ${port}`);
 });
