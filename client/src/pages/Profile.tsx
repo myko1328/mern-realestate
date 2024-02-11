@@ -12,6 +12,7 @@ import {
   deleteUserFailure,
   deleteUserStart,
   deleteUserSuccess,
+  signOutUserStart,
   updateUserFailure,
   updateUserStart,
   updateUserSuccess,
@@ -108,20 +109,20 @@ const Profile = () => {
     }
   };
 
-  // const handleSignOut = async () => {
-  //   try {
-  //     dispatch(signOutUserStart());
-  //     const res = await fetch('/api/auth/signout');
-  //     const data = await res.json();
-  //     if (data.success === false) {
-  //       dispatch(deleteUserFailure(data.message));
-  //       return;
-  //     }
-  //     dispatch(deleteUserSuccess(data));
-  //   } catch (error) {
-  //     dispatch(deleteUserFailure(data.message));
-  //   }
-  // };
+  const handleSignOut = async () => {
+    try {
+      dispatch(signOutUserStart());
+      const res = await fetch("/api/v1/auth/signout");
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(deleteUserFailure(data.message));
+        return;
+      }
+      dispatch(deleteUserSuccess(data));
+    } catch (error: any) {
+      dispatch(deleteUserFailure(error?.message));
+    }
+  };
 
   // const handleShowListings = async () => {
   //   try {
@@ -233,7 +234,9 @@ const Profile = () => {
         >
           Delete Account
         </button>
-        <span className="text-red-700 cursor-pointer">Sign out</span>
+        <button onClick={handleSignOut} className="text-red-700 cursor-pointer">
+          Sign out
+        </button>
       </div>
 
       <p className="text-red-700 mt-5">{error ? error : ""}</p>
