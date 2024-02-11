@@ -29,6 +29,7 @@ app.listen(port, () => {
 
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/listing", authRouter);
 
 app.use((err: any, req: any, res: any, next: any) => {
   const statusCode = err.statusCode || 500;
