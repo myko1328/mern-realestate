@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRouter from "./routes/user.routes";
 import authRouter from "./routes/auth.route";
+import listingRouter from "./routes/listing.route";
 import cookieParser from "cookie-parser";
 dotenv.config();
 
@@ -29,7 +30,7 @@ app.listen(port, () => {
 
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/auth", authRouter);
-app.use("/api/v1/listing", authRouter);
+app.use("/api/v1/listing", listingRouter);
 
 app.use((err: any, req: any, res: any, next: any) => {
   const statusCode = err.statusCode || 500;
