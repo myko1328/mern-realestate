@@ -2,7 +2,7 @@
   "name": "mern-estate",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/index.js",
+  "main": "api/dist/index.js",
   "scripts": {
     "dev": "tsc -w & nodemon api/dist/index.js",
     "dev:win": "start /b tsc -w & nodemon api/dist/index.js",
