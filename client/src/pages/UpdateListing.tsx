@@ -1,4 +1,4 @@
-import { Key, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   getDownloadURL,
   getStorage,
@@ -50,7 +50,7 @@ export default function UpdateListing() {
     fetchListing();
   }, []);
 
-  const handleImageSubmit = (e: any) => {
+  const handleImageSubmit = () => {
     if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
       setUploading(true);
       setImageUploadError(false);
@@ -68,7 +68,7 @@ export default function UpdateListing() {
           setImageUploadError(false);
           setUploading(false);
         })
-        .catch((err) => {
+        .catch(() => {
           setImageUploadError("Image upload failed (2 mb max per image)");
           setUploading(false);
         });
