@@ -18,8 +18,6 @@ mongoose
     console.log(err);
   });
 
-const __dirname = path.resolve();
-
 const app = express();
 const port = 3000;
 
