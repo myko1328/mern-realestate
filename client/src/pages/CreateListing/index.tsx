@@ -5,16 +5,17 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
-import { app } from "../firebase";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { RootState } from "../redux/store";
+import { RootState } from "../../redux/store";
+import { app } from "../../firebase";
+import { CreateListingForm } from "./types";
 
-export default function CreateListing() {
+const CreateListing = () => {
   const { currentUser } = useSelector((state: RootState) => state.user);
   const navigate = useNavigate();
-  const [files, setFiles] = useState<any>([]);
-  const [formData, setFormData] = useState<any>({
+  const [files, setFiles] = useState<File[]>([]);
+  const [formData, setFormData] = useState<CreateListingForm>({
     imageUrls: [],
     name: "",
     description: "",
@@ -33,8 +34,8 @@ export default function CreateListing() {
   );
   const [uploading, setUploading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
-  console.log(formData);
+  const [loading, setLoading] = useState<boolean>(false);
+
   const handleImageSubmit = () => {
     if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
       setUploading(true);
@@ -46,9 +47,13 @@ export default function CreateListing() {
       }
       Promise.all(promises)
         .then((urls) => {
+          const validUrls = urls.filter(
+            (url): url is string => typeof url === "string"
+          );
+
           setFormData({
             ...formData,
-            imageUrls: formData.imageUrls.concat(urls),
+            imageUrls: formData.imageUrls.concat(validUrls),
           });
           setImageUploadError(false);
           setUploading(false);
@@ -319,7 +324,9 @@ export default function CreateListing() {
           </p>
           <div className="flex gap-4">
             <input
-              onChange={(e) => setFiles(e.target.files)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                e.target.files && setFiles(Array.from(e.target.files))
+              }
               className="p-3 border border-gray-300 rounded w-full"
               type="file"
               id="images"
@@ -369,4 +376,6 @@ export default function CreateListing() {
       </form>
     </main>
   );
-}
+};
+
+export default CreateListing;
