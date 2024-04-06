@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import Listing from "../models/listing.mode";
-import { errorHandler } from "../utlis/error";
+import Listing from "../../models/listing.mode";
+import { errorHandler } from "../../utlis/error";
 
 interface User {
   id: string;
