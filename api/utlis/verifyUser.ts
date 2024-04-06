@@ -1,11 +1,8 @@
 import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
 import { Request, Response, NextFunction } from "express";
 
 import { errorHandler } from "./error.js";
-
-dotenv.config();
-const jwtToken: any = process.env.JWT_SECRET;
+import { env } from "../src/config/config.js";
 
 interface AuthenticatedRequest extends Request {
   user?: string;
@@ -20,7 +17,7 @@ export const verifyToken = (
 
   if (!token) return next(errorHandler(401, "Unauthorized"));
 
-  jwt.verify(token, jwtToken, (err: any, user: any) => {
+  jwt.verify(token, env.JWT_SECRET, (err: any, user: any) => {
     if (err) return next(errorHandler(403, "Forbidden"));
 
     req.user = user;
