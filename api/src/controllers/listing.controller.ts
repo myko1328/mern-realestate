@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import Listing from "../../models/listing.mode";
 import { errorHandler } from "../../utlis/error";
+import { QueryParams } from "../interfaces/QueryParams";
 
 interface User {
   id: string;
@@ -86,34 +87,6 @@ export const getListing = async (
     next(error);
   }
 };
-
-interface QueryParams {
-  limit?: string;
-  startIndex?: string;
-  offer?:
-    | {
-        $in: string | boolean[];
-      }
-    | string;
-  furnished?:
-    | {
-        $in: string | boolean[];
-      }
-    | string;
-  parking?:
-    | {
-        $in: string | boolean[];
-      }
-    | string;
-  type?:
-    | {
-        $in: string[];
-      }
-    | string;
-  searchTerm?: string;
-  sort?: string;
-  order?: string;
-}
 
 export const getListings = async (
   req: Request<{}, {}, {}, QueryParams>,

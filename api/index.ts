@@ -1,16 +1,14 @@
 import express from "express";
 import mongoose from "mongoose";
-import dotenv from "dotenv";
 import userRouter from "./src/routes/user.routes";
 import authRouter from "./src/routes/auth.route";
 import listingRouter from "./src/routes/listing.route";
 import cookieParser from "cookie-parser";
 import path from "path";
-dotenv.config();
+import { env } from "./src/config/config";
 
-const mongoUri: any = process.env.mongo_uri;
 mongoose
-  .connect(mongoUri)
+  .connect(env.MONGO_URI)
   .then(() => {
     console.log("connected to db");
   })
