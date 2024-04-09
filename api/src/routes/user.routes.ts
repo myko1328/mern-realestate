@@ -254,7 +254,7 @@ router.get("/listings/:id", verifyToken, getUserListings);
 
 /**
  * @openapi
- * /api/v1/users/{id}:
+ * /api/v1/user/{id}:
  *   get:
  *     summary: Get User Details
  *     description: Retrieves details of a specific user by their ID. Requires authentication.

@@ -338,7 +338,7 @@
     },
     "/api/v1/auth/signout": {
       "post": {
-        "summary": "User Sign Out",
+        "summary": "User Sign Outasdasd",
         "description": "Logs out the current user by clearing the access token cookie.",
         "operationId": "signOut",
         "tags": [
@@ -1364,7 +1364,7 @@
         }
       }
     },
-    "/api/v1/users/{id}": {
+    "/api/v1/user/{id}": {
       "get": {
         "summary": "Get User Details",
         "description": "Retrieves details of a specific user by their ID. Requires authentication.",
