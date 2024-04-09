@@ -1,0 +1,12 @@
+openapi: 3.0.3
+info:
+  title: Mern Estate API
+  version: 1.0.0
+
+tags:
+  - name: Listings
+    description: Discover all listings api
+  - name: Health
+    description: Health check endpoint for Mern Estate API
+  - name: Auth
+    description: Authentication Endpoints
