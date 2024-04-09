@@ -171,7 +171,7 @@ router.delete("/delete/:id", verifyToken, deleteUser);
  *     description: Retrieves all listings created by a specific user. Requires authentication and user can only access their own listings.
  *     operationId: getUserListings
  *     tags:
- *       - Listings
+ *       - User
  *     security:
  *       - cookieAuth: []
  *     parameters:
