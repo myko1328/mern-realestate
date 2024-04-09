@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "tsc -w & nodemon api/dist/index.js",
     "dev:win": "npm run schemas:openapi && start /b tsc -w & nodemon api/dist/index.js",
-    "schemas:openapi": "swagger-jsdoc -d src/routes/definition.yaml src/routes/*.ts \"src/routes/!(definition).yaml\" -o src/schemas/openapi.json",
+    "schemas:openapi": "swagger-jsdoc -d api/src/docs/definition.yaml api/src/routes/*.ts \"api/src/docs/!(definition).yaml\" -o api/src/docs/openapi.json",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm install && tsc && npm install --prefix client && npm run build --prefix client"
   },

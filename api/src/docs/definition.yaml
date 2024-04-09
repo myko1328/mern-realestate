@@ -10,3 +10,5 @@ tags:
     description: Health check endpoint for Mern Estate API
   - name: Auth
     description: Authentication Endpoints
+  - name: User
+    description: Authentication Endpoints
