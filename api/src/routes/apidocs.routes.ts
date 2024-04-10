@@ -1,14 +1,18 @@
-// import path from 'path';
-// import express, { Router } from 'express';
-// import swaggerUi from 'swagger-ui-express';
+import { Router } from "express";
+import swaggerUi from "swagger-ui-express";
+import openapiDoc from "../docs/openapi.json";
 
-// export const router = Router();
+const router = Router();
 
-// router.use('/', swaggerUi.serve);
-// router.get('/', swaggerUi.setup(openapiDoc));
+router.use("/", swaggerUi.serve);
+router.get("/", swaggerUi.setup(openapiDoc));
+
+export default router;
 
 // // (optional) serve the OpenAPI specification
 // router.use(
 //   '/openapi.json',
 //   express.static(path.join(__dirname, '../schemas/openapi.json'))
 // );
+
+// npx swagger-jsdoc -d api/src/docs/definition.yaml "api/src/routes/*.ts" "api/src/docs/!(definition).yaml" -o api/src/docs/openapi.json
