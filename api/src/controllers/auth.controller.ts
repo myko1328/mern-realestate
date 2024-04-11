@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import bcrypts from "bcryptjs";
-import User from "../../models/user.model";
-import { errorHandler } from "../../utlis/error";
+import User from "../models/user.model";
+import { errorHandler } from "../utlis/error";
 import jwt from "jsonwebtoken";
 import { env } from "../../src/config/config";
 

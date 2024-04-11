@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-import { errorHandler } from "../../utlis/error";
+import { errorHandler } from "../utlis/error";
 import bcryptjs from "bcryptjs";
-import User from "../../models/user.model.js";
-import Listing from "../../models/listing.mode";
+import User from "../models/user.model.js";
+import Listing from "../models/listing.mode";
 
 interface User {
   id: string;

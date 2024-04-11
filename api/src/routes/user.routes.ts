@@ -6,7 +6,7 @@ import {
   test,
   updateUser,
 } from "../controllers/user.controller";
-import { verifyToken } from "../../utlis/verifyUser";
+import { verifyToken } from "../utlis/verifyUser";
 
 const router = express.Router();
 

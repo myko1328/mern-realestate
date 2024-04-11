@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
 
 import { errorHandler } from "./error.js";
-import { env } from "../src/config/config.js";
+import { env } from "../config/config.js";
 
 interface AuthenticatedRequest extends Request {
   user?: string;
