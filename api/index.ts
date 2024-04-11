@@ -1,5 +1,4 @@
 import express from "express";
-import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import path from "path";
 
@@ -9,17 +8,9 @@ import listingRouter from "./src/routes/listing.routes";
 import healthRouter from "./src/routes/health.routes";
 import swaggerRouter from "./src/routes/apidocs.routes";
 
-import { env } from "./src/config/config";
+import { db } from "./src/config/db";
 
-mongoose
-  .connect(env.MONGO_URI)
-  .then(() => {
-    console.log("connected to db");
-  })
-  .catch((err: any) => {
-    console.log(err);
-  });
-
+db.connect();
 const app = express();
 const port = 3000;
 
