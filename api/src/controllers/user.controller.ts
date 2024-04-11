@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { errorHandler } from "../utlis/error";
 import bcryptjs from "bcryptjs";
 import User from "../models/user.model.js";
-import Listing from "../models/listing.mode";
+import Listing from "../models/listing.model";
 
 interface User {
   id: string;
