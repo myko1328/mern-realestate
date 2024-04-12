@@ -1,6 +1,8 @@
 import { NextFunction } from "express";
-import { QueryParams } from "../interfaces/QueryParams";
+
 import Listing from "../models/listing.model";
+
+import { QueryParams } from "../interfaces/QueryParams";
 import { errorHandler } from "../utlis/error";
 import { ListingInput } from "../interfaces/ListingInput";
 

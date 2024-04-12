@@ -1,8 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { errorHandler } from "../utlis/error";
-import bcryptjs from "bcryptjs";
 import User from "../models/user.model.js";
-import Listing from "../models/listing.model";
+import * as UserService from "../services/user.service";
 
 interface User {
   id: string;
@@ -25,31 +24,7 @@ export const updateUser = async (
     return next(errorHandler(401, "You can only update your own account!"));
 
   try {
-    if (req.body.password) {
-      req.body.password = bcryptjs.hashSync(req.body.password, 10);
-    }
-
-    const updatedUser = await User.findByIdAndUpdate(
-      req.params.id,
-      {
-        $set: {
-          username: req.body.username,
-          email: req.body.email,
-          password: req.body.password,
-          avatar: req.body.avatar,
-        },
-      },
-      { new: true }
-    );
-
-    const user = {
-      _id: updatedUser?._id,
-      username: updatedUser?.username,
-      email: updatedUser?.email,
-      avatar: updatedUser?.avatar,
-      createdAt: updatedUser?.createdAt,
-      updatedAt: updatedUser?.updatedAt,
-    };
+    const user = await UserService.updateUser(req.body, req.params.id, next);
 
     res.status(200).json(user);
   } catch (error) {
@@ -65,7 +40,7 @@ export const deleteUser = async (
   if (req.user?.id !== req.params.id)
     return next(errorHandler(401, "You can only delete your own account!"));
   try {
-    await User.findByIdAndDelete(req.params.id);
+    await UserService.deleteUser(req.params.id, next);
     res.clearCookie("access_token");
     res.status(200).json("User has been deleted!");
   } catch (error) {
@@ -80,7 +55,7 @@ export const getUserListings = async (
 ) => {
   if (req.user?.id === req.params.id) {
     try {
-      const listings = await Listing.find({ userRef: req.params.id });
+      const listings = await UserService.getUserListings(req.params.id);
       res.status(200).json(listings);
     } catch (error) {
       next(error);
@@ -96,20 +71,9 @@ export const getUser = async (
   next: NextFunction
 ) => {
   try {
-    const user = await User.findById(req.params.id);
+    const user = await UserService.getUser(req.params.id, next);
 
-    if (!user) return next(errorHandler(404, "User not found!"));
-
-    const getUser = {
-      _id: user?._id,
-      username: user?.username,
-      email: user?.email,
-      avatar: user?.avatar,
-      createdAt: user?.createdAt,
-      updatedAt: user?.updatedAt,
-    };
-
-    res.status(200).json(getUser);
+    res.status(200).json(user);
   } catch (error) {
     next(error);
   }
