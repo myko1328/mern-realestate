@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { NextFunction } from "express";
 
 import User from "../models/user.model";
-import { errorHandler } from "../utlis/error";
+import { errorHandler } from "../utils/error";
 import { UserInput } from "../interfaces/UserInput";
 
 import { env } from "../config/config";
@@ -36,7 +36,7 @@ export const signIn = async (
 
     if (!validPassword) return next(errorHandler(404, "Wrong credentials!"));
 
-    const user = {
+    const user: any = {
       _id: validUser._id,
       avatar: validUser?.avatar ?? "",
       username: validUser.username,

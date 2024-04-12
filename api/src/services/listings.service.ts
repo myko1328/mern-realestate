@@ -3,7 +3,7 @@ import { NextFunction } from "express";
 import Listing from "../models/listing.model";
 
 import { QueryParams } from "../interfaces/QueryParams";
-import { errorHandler } from "../utlis/error";
+import { errorHandler } from "../utils/error";
 import { ListingInput } from "../interfaces/ListingInput";
 
 export const getListings = async (query: QueryParams) => {

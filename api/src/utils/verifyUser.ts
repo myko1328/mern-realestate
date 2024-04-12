@@ -1,8 +1,7 @@
 import jwt from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
-
-import { errorHandler } from "./error.js";
-import { env } from "../config/config.js";
+import { errorHandler } from "./error";
+import { env } from "../config/config";
 
 interface AuthenticatedRequest extends Request {
   user?: string;

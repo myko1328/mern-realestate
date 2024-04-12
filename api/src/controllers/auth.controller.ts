@@ -28,9 +28,9 @@ export const signin = async (
   const { email, password } = req.body;
 
   try {
-    const user = await AuthService.signIn(email, password, next);
+    const user: any = await AuthService.signIn(email, password, next);
 
-    const token = jwt.sign({ id: user?._id }, env.JWT_SECRET);
+    const token = jwt.sign({ id: user?.id }, env.JWT_SECRET);
 
     res
       .cookie("access_token", token, { httpOnly: true })

@@ -1,4 +1,4 @@
-import app from ".";
+import app from "./src/index";
 
 const port = 9000; // Choose a suitable port
 

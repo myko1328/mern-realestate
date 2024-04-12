@@ -2,10 +2,10 @@
   "name": "mern-estate",
   "version": "1.0.0",
   "description": "",
-  "main": "api/dist/index.js",
+  "main": "./dist/src/index.js",
   "scripts": {
-    "dev": "tsc -w & nodemon api/dist/index.js",
-    "dev:win": "npm run schemas:openapi && start /b tsc -w & nodemon api/dist/index.js",
+    "dev": "tsc -w & nodemon dist/src/index.js",
+    "dev:win": "start /b tsc -w & nodemon dist/src/index.js",
     "schemas:openapi": "swagger-jsdoc -d api/src/docs/definition.yaml api/src/routes/*.ts \"api/src/docs/!(definition).yaml\" -o api/src/docs/openapi.json",
     "test": "jest --watchAll --detectOpenHandles",
     "build": "npm install && tsc && npm install --prefix client && npm run build --prefix client"

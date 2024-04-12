@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { errorHandler } from "../utlis/error";
+import { errorHandler } from "../utils/error";
 import User from "../models/user.model.js";
 import * as UserService from "../services/user.service";
 

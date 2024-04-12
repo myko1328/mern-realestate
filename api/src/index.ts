@@ -1,26 +1,23 @@
 import express from "express";
+const app = express();
 import cookieParser from "cookie-parser";
 import path from "path";
 
-import userRouter from "./src/routes/user.routes";
-import authRouter from "./src/routes/auth.routes";
-import listingRouter from "./src/routes/listing.routes";
-import healthRouter from "./src/routes/health.routes";
-import swaggerRouter from "./src/routes/apidocs.routes";
+import userRouter from "./routes/user.routes";
+import authRouter from "./routes/auth.routes";
+import listingRouter from "./routes/listing.routes";
+import healthRouter from "./routes/health.routes";
+import swaggerRouter from "./routes/apidocs.routes";
 
-import { db } from "./src/config/db";
+import { db } from "./config/db";
 
-db.connect();
-const app = express();
 const port = 3000;
 
 app.use(express.json());
 
 app.use(cookieParser());
 
-app.listen(port, () => {
-  console.log(`listening to port ${port}`);
-});
+db.connect();
 
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/auth", authRouter);
@@ -45,5 +42,13 @@ app.use((err: any, req: any, res: any, next: any) => {
     message,
   });
 });
+
+if (process.env.NODE_ENV !== "test") {
+  const PORT = process.env.PORT || 3000;
+
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
 
 export default app;

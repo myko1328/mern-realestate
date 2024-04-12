@@ -4,7 +4,7 @@ import bcryptjs from "bcryptjs";
 import { UserInput } from "../interfaces/UserInput";
 import User from "../models/user.model";
 import Listing from "../models/listing.model";
-import { errorHandler } from "../utlis/error";
+import { errorHandler } from "../utils/error";
 
 export const updateUser = async (
   body: UserInput,
