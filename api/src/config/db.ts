@@ -2,10 +2,7 @@ import mongoose from "mongoose";
 import { env } from "./config";
 
 class Database {
-  constructor(private mongoURI: string) {
-    this.mongoURI =
-      process.env.NODE_ENV === "test" ? env.MONGO_URI_TEST : env.MONGO_URI;
-  }
+  constructor(private mongoURI: string) {}
 
   // Connect to the MongoDB database
   async connect(): Promise<void> {
