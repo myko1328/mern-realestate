@@ -7,7 +7,7 @@
     "dev": "tsc -w & nodemon api/dist/index.js",
     "dev:win": "npm run schemas:openapi && start /b tsc -w & nodemon api/dist/index.js",
     "schemas:openapi": "swagger-jsdoc -d api/src/docs/definition.yaml api/src/routes/*.ts \"api/src/docs/!(definition).yaml\" -o api/src/docs/openapi.json",
-    "test": "jest --watchAll --detectOpenHandles",
+    "test": "cross-env NODE_ENV=test jest --watchAll --detectOpenHandles",
     "build": "npm install && tsc && npm install --prefix client && npm run build --prefix client"
   },
   "repository": {
@@ -31,6 +31,7 @@
     "@types/supertest": "^6.0.2",
     "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.6",
+    "cross-env": "^7.0.3",
     "jest": "^29.7.0",
     "nodemon": "^3.0.3",
     "supertest": "^6.3.4",
