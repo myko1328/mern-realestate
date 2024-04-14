@@ -9,18 +9,18 @@ import healthRouter from "./src/routes/health.routes";
 import swaggerRouter from "./src/routes/apidocs.routes";
 
 import { db } from "./src/config/db";
+import { env } from "./src/config/config";
 
 db.connect();
 const app = express();
-const port = 3000;
 
 app.use(express.json());
 
 app.use(cookieParser());
 
-app.listen(port, () => {
-  console.log(`listening to port ${port}`);
-});
+// app.listen(port, () => {
+//   console.log(`listening to port ${port}`);
+// });
 
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/auth", authRouter);
@@ -46,12 +46,12 @@ app.use((err: any, req: any, res: any, next: any) => {
   });
 });
 
-// if (env.NODE_ENV !== "test") {
-//   const PORT = process.env.PORT || 3000;
+if (env.NODE_ENV !== "test") {
+  const PORT = process.env.PORT || 8080;
 
-//   app.listen(PORT, () => {
-//     console.log(`Server running on port ${PORT}`);
-//   });
-// }
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
 
 export default app;
