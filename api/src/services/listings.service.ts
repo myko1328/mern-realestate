@@ -73,7 +73,7 @@ export const updateListing = async (
   next: NextFunction
 ) => {
   const listing = await Listing.findById(id);
-  console.log({ listing });
+
   if (!listing) {
     return next(errorHandler(404, "Listing not found!"));
   }
@@ -119,6 +119,14 @@ export const createListing = async (
   next: NextFunction
 ) => {
   try {
+    const isListingExists = await Listing.where({ name: listingInput.name });
+
+    if (isListingExists.length !== 0) {
+      return next(
+        errorHandler(404, "Listing already exists! Please create a new one.")
+      );
+    }
+
     const listing = await Listing.create(listingInput);
     return listing;
   } catch (error) {
