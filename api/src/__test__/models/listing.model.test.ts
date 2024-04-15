@@ -1,9 +1,9 @@
-import mongoose from "mongoose";
 import { db } from "../../config/db";
 import Listing from "../../models/listing.model";
+import { ICreateListing } from "../../interfaces/ListingInput";
 
-describe("User Model Tests", () => {
-  let createdListing: any;
+describe("Listing Model Tests", () => {
+  let createdListing: ICreateListing;
 
   beforeAll(async () => {
     await db.connect();
@@ -40,6 +40,35 @@ describe("User Model Tests", () => {
     expect(createdListing.name).toBe(listingData.name);
     expect(createdListing).toHaveProperty("userRef");
     expect(createdListing).toHaveProperty("_id");
+  }, 10000); // Increase timeout to 10 seconds
+
+  // Test Case: Get all listing
+  it("should get listings", async () => {
+    const listings = await Listing.find();
+
+    // Expectations
+    const expectedProducts = {
+      _id: createdListing._id,
+      name: createdListing.name,
+      description: createdListing.description,
+      // Add other necessary fields
+    };
+
+    expect(listings).toContainEqual(expect.objectContaining(expectedProducts));
+  }, 10000); // Increase timeout to 10 seconds
+
+  // Test Case: Get only 1 listing
+  it("should get 1 listings", async () => {
+    const listings = await Listing.findById(createdListing._id);
+
+    // Expected result structure based on your example response
+    const expectedListing = {
+      _id: createdListing._id, // Check if the _id is an ObjectId
+      name: createdListing.name,
+      description: createdListing.description,
+    };
+
+    expect(listings?.toJSON()).toMatchObject(expectedListing);
   }, 10000); // Increase timeout to 10 seconds
 
   // Test Case: Ensure listing name is unique
