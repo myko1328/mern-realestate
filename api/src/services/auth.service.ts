@@ -12,11 +12,16 @@ export const signUp = async (body: UserInput, next: NextFunction) => {
   const { username, email, password } = body;
   const hashedPassword = bcryptjs.hashSync(password, 10);
 
-  const newUser = new User({ username, email, password: hashedPassword });
-
   try {
-    await newUser.save();
+    const newUser = await User.create({
+      username,
+      email,
+      password: hashedPassword,
+    });
+
+    return newUser;
   } catch (error) {
+    console.log({ error });
     next(error);
   }
 };
@@ -80,14 +85,12 @@ export const googleSignIn = async (body: UserInput, next: NextFunction) => {
       const generatedPassword = Math.random().toString(36).slice(-8);
       const hashedPassword = bcryptjs.hashSync(generatedPassword, 10);
 
-      const newUser = new User({
+      const newUser = await User.create({
         username: generatedName,
         email,
         password: hashedPassword,
         avatar: photo,
       });
-
-      await newUser.save();
 
       const token = jwt.sign({ id: newUser._id }, env.JWT_SECRET);
 
